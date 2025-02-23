@@ -321,7 +321,7 @@ _选用方正楷体作为强调字体_
 #example() 测试
 
 === 结论类环境
-包扩 note、conclusion、assumption、property、remark、solution、proof
+包括 note、conclusion、assumption、property、remark、solution、proof
 
 ```
 #note[测试]
