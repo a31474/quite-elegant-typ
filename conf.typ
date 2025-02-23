@@ -92,7 +92,7 @@
     set text(fill: rgb(127, 0, 0))
     let i = it.element
     if i != none and i.func() == figure and i.kind == "math-fun-def" {
-      link(i.location(), i.supplement + i.caption)
+      link(i.location(), i.supplement + box(i.caption))
     } else if i != none and i.func() == math.equation and i.numbering == "math-fun-exam" {
       link(i.location(), i.supplement)
     } else if i != none and i.func() == heading {
