@@ -59,11 +59,11 @@
     heading(numbering: none, outlined: false)[目录]
 
     show outline.entry.where(level: 1): it => {
-      v(12pt, weak: true)
+      set block(above: 1.2em)
       strong(it)
     }
-
-    outline(title: none, indent: 1.8em, fill: repeat(" . "))
+    set outline.entry(fill: repeat(" . "))
+    outline(title: none, indent: 1.8em)
   }
     + counter(page).update(1)
 )
