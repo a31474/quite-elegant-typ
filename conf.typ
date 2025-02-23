@@ -134,16 +134,8 @@
   )
 
   // 首行缩进
-  set par(first-line-indent: 2em)
+  set par(first-line-indent: (amount: 2em, all: true))
   set terms(indent: 2em)
-  // fake-par 修复首行缩进
-  show heading: it => it + fake-par
-  show enum: it => it + fake-par
-  show list: it => it + fake-par
-  show terms: it => it + fake-par
-  show figure: it => it + fake-par
-  show raw.where(block: true): it => it + fake-par
-  show math.equation.where(block: true): it => it + fake-par
 
   doc
 }
