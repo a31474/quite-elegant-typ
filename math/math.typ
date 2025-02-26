@@ -1,5 +1,5 @@
 #import "../util/color.typ": color-select
-#import "../util/util.typ": f-heading, fake-par
+#import "../util/util.typ": f-heading
 // 颜色主题
 #let color-themes = color-select("blue")
 
@@ -29,7 +29,6 @@
         fill: main-color.lighten(95%),
         {
           set text(font: ("Times New Roman", "FZKai-Z03S"))
-          fake-par
           content
         },
       ),

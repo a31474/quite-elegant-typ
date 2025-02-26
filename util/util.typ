@@ -6,8 +6,3 @@
     h
   }
 }
-
-#let fake-par = context {
-  box()
-  v(-measure(block() + box()).height)
-}

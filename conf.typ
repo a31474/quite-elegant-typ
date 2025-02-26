@@ -1,6 +1,6 @@
 #import "header/header.typ": header-fun, heading-update
 #import "util/color.typ": color-select
-#import "util/util.typ": f-heading, fake-par
+#import "util/util.typ": f-heading
 
 #import "@preview/numbly:0.1.0": numbly
 
