@@ -295,27 +295,31 @@ _选用方正楷体作为强调字体_
 
 #text(fill: book-color.blue.third)[proposition] 环境，颜色为 #text(fill: book-color.blue.third)[sthird]。
 
-并且提供参数 `number` 和 `step`, 控制是否显示计数器和计数器是否步进.
+并且提供参数 `number`, 控制是否显示计数器.
 
 ```
 #definition[ 测试][$ a times b $]
-#definition(step: false)[-b 测试][$ b times c $]
+#definition[ 测试][$ a times b $]
 #definition(number: false)[ (测试)][$ c times d $]
 ```
 #definition[ 测试][$ a times b $]
-#definition(step: false)[-b 测试][$ b times c $]
 #definition(number: false)[ (测试)][$ c times d $]
+#definition[ 测试][$ a times b $]
 
 === 示例类环境
 包括 example、problem、exercise.
 
-并且提供参数 `number` 和 `step`, 控制是否显示计数器和计数器是否步进.
+并且提供参数 `number`, 控制是否显示计数器.
 
 ```
+#example() 测试
+
 #example(number: false) 测试
 
 #example() 测试
 ```
+#example() 测试
+
 #example(number: false) 测试
 
 #example() 测试
@@ -367,11 +371,10 @@ _选用方正楷体作为强调字体_
 
 *定理类*
 ```
-#let postulate(number: true, step: true, name, content) = math-fun-def(
+#let postulate(number: true, name, content) = math-fun-def(
   main-color: color-themes.second,
   type: "假设",
   number: number,
-  step: step,
   name,
   content,
 )
@@ -379,10 +382,9 @@ _选用方正楷体作为强调字体_
 
 *示例类*
 ```
-#let example(number: true, step: true) = math-fun-exam(
+#let example(number: true) = math-fun-exam(
   main-color: color-themes.main,
   number: number,
-  step: step,
   type: "例",
 )
 ```
@@ -395,12 +397,6 @@ _选用方正楷体作为强调字体_
   "结论",
   body,
 )
-```
-
-
-*若新增的数学环境用到了计数器, 请向 conf 传入一 array, 内容为新增计数器的 type*
-```
-#show: conf.with(new-math-fun: ("假设","例"))
 ```
 
 == 列表环境
@@ -423,7 +419,8 @@ _选用方正楷体作为强调字体_
       + item1
       + 项目 2
       + item1
-      + 项目 2],
+      + 项目 2
+  ],
 )
 
 == 数学公式编号
@@ -504,7 +501,7 @@ $ I(t)=integral_(cal(R)^1) f(x+t) g(x) dif x quad t in cal(R)^1 $
   （2）若 $f(x,y)$ 是 $cal(R)^p times cal(R)^q$ 上的可积函数，则对几乎处处的 $x in cal(R)^p$，$f(x,y)$ 作为 $y$ 的函数是 $cal(R)^q$ 上的可积函数，并且 $g(x)=integral_(cal(R)^q) f(x,y) dif y$ 是 $cal(R)^p$ 上的可积函数。而且@a 成立。
 ] <b>
 
-#note[在本模板中，引理（lemma），推论（corollary）的样式和@b 的样式一致，包括颜色，仅仅只有计数器的设置不一样。]
+#note[在本模板中，引理（lemma），推论（corollary）的样式和#link(<b>,[定理4-1]) 的样式一致，包括颜色，仅仅只有计数器的设置不一样。]
 #proposition[ (最优性原理)][如果 $u^*$ 在 $[s,T]$ 上为最优解，则 $u^*$ 在 $[s, T]$ 任意子区间都是最优解，假设区间为 $[t_0, t_1]$ 的最优解为 $u^*$ ，则 $u(t_0)=u^{*}(t_0)$，即初始条件必须还是在 $u^*$ 上。]
 
 我们知道最小二乘法可以用来处理一组数据，可以从一组测定的数据中寻求变量之间的依赖关系，这种函数关系称为经验公式。本课题将介绍最小二乘法的精确定义及如何寻求点与点之间近似成线性关系时的经验公式。假定实验测得变量之间的 $n$ 个数据，则在平面上，可以得到 $n$ 个点，这种图形称为 “散点图”，从图中可以粗略看出这些点大致散落在某直线近旁, 我们认为其近似为一线性函数，下面介绍求解步骤。
