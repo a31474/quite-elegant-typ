@@ -1,6 +1,6 @@
 #import "header/header.typ": header-fun, heading-update
 #import "util/color.typ": color-select
-#import "util/util.typ": f-heading, ar-h
+#import "util/util.typ": f-heading, f-numbering-ref, ar-h
 
 #import "@preview/numbly:0.1.0": numbly
 
@@ -80,6 +80,19 @@
     } else {
       it
     }
+  }
+  // math-fun-ref
+  show ref: it => if it.element != none and it.element.func() == [].func() {
+    let state-update = state("test").update(it => it).func()
+    let type = str(it.element.label).split(":").first()
+    let i = it.element.children.last()
+    if i.func() == state-update {
+      if i.fields().values().first() == "array-heading-num" {
+        link(it.element.location(), type + f-numbering-ref(it.element.location(), "math-fun-def" + type))
+      }
+    }
+  } else {
+    it
   }
 
   show link: set text(fill: rgb(127, 0, 0))

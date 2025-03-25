@@ -14,3 +14,9 @@
   let r = i.position(it => type(it) == dictionary)
   [#numbering("1.1", ..i.at(r).values().first())-#{ i.slice(0, r).len() + 1 }]
 }
+
+#let f-numbering-ref(loc, name) = {
+  let i = ar-h.at(loc).rev().filter(it => it == name or type(it) == dictionary)
+  let r = i.position(it => type(it) == dictionary)
+  [#numbering("1.1", ..i.at(r).values().first())-#{ i.slice(0, r).len() + 1 }]
+}
