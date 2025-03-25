@@ -1,6 +1,6 @@
 #import "header/header.typ": header-fun, heading-update
 #import "util/color.typ": color-select
-#import "util/util.typ": f-heading
+#import "util/util.typ": f-heading, ar-h
 
 #import "@preview/numbly:0.1.0": numbly
 
@@ -30,16 +30,6 @@
 #let figure-image-heading-update(it, update-level) = if it.numbering == none { } else {
   if it.level <= update-level {
     counter(figure.where(kind: image)).update(0)
-  }
-}
-
-#let math-fun-heading-update(it, update-level, counter-list) = {
-  if it.numbering == none { } else {
-    if it.level <= update-level {
-      for name in counter-list {
-        counter(name).update(0)
-      }
-    }
   }
 }
 
@@ -79,23 +69,13 @@
       (#numbering("1.1",..f-heading(level: eq-level)).#counter(math.equation).display("1"))
     ],
   )
-  // 数学环境编号
-  let counter-list = ("定义", "定理", "引理", "推论", "公理", "假设", "命题", "例", "例题", "练习")
-  counter-list = counter-list + new-math-fun
-  show heading: it => it + math-fun-heading-update(it, 1, counter-list)
-  show figure.where(kind: "math-fun-def"): it => {
-    set align(left)
-    it.body
-  }
+
+  show heading: it => it + if it.level <= 1 { ar-h.update(i => i + ((h: counter(heading).at(it.location())),)) }
   // 引用
   show ref: it => {
     set text(fill: rgb(127, 0, 0))
     let i = it.element
-    if i != none and i.func() == figure and i.kind == "math-fun-def" {
-      link(i.location(), i.supplement + box(i.caption))
-    } else if i != none and i.func() == math.equation and i.numbering == "math-fun-exam" {
-      link(i.location(), i.supplement)
-    } else if i != none and i.func() == heading {
+    if i != none and i.func() == heading {
       link(i.location(), numbering(i.numbering, ..counter(heading).at(i.location())) + " " + i.body)
     } else {
       it
