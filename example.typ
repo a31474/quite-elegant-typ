@@ -30,7 +30,7 @@
   subtitle: [ElegantBook 的 Typst 复刻],
   author: [编译型战狼],
   date: datetime.today().display(),
-  version: version(0, 1, 0),
+  version: version(0, 2, 0),
   other: (自定义: "信息"),
 )
 #default-outline()
@@ -298,13 +298,13 @@ _选用方正楷体作为强调字体_
 并且提供参数 `number`, 控制是否显示计数器.
 
 ```
+#definition[ 测试][$ a times b $] <定义:test>
 #definition[ 测试][$ a times b $]
-#definition[ 测试][$ a times b $]
-#definition(number: false)[ (测试)][$ c times d $]
+#definition(number: false)[ (测试)][$ c times d $] <test>
 ```
+#definition[ 测试][$ a times b $] <定义:test>
 #definition[ 测试][$ a times b $]
-#definition(number: false)[ (测试)][$ c times d $]
-#definition[ 测试][$ a times b $]
+#definition(number: false)[ (测试)][$ c times d $] <test>
 
 === 示例类环境
 包括 example、problem、exercise.
@@ -338,6 +338,22 @@ _选用方正楷体作为强调字体_
 #note[] 测试
 
 被包含的内容字体会有变化
+
+=== 数学环境的引用
+
+引用有计数器的数学环境时, 标签前请加上对应计数器的名称.如下
+```
+#definition[ 测试][$ a times b $] <定义:test>
+#definition(number: false)[ (测试)][$ c times d $] <test>
+
+引用测试 @定义:test
+
+引用测试 #link(<test>)[定义引用]
+```
+
+引用测试 @定义:test
+
+引用测试 #link(<test>)[定义引用]
 
 === 颜色设置
 
@@ -499,9 +515,9 @@ $ I(t)=integral_(cal(R)^1) f(x+t) g(x) dif x quad t in cal(R)^1 $
   $ <a>
 
   （2）若 $f(x,y)$ 是 $cal(R)^p times cal(R)^q$ 上的可积函数，则对几乎处处的 $x in cal(R)^p$，$f(x,y)$ 作为 $y$ 的函数是 $cal(R)^q$ 上的可积函数，并且 $g(x)=integral_(cal(R)^q) f(x,y) dif y$ 是 $cal(R)^p$ 上的可积函数。而且@a 成立。
-] <b>
+] <定理:a>
 
-#note[在本模板中，引理（lemma），推论（corollary）的样式和#link(<b>,[定理4-1]) 的样式一致，包括颜色，仅仅只有计数器的设置不一样。]
+#note[在本模板中，引理（lemma），推论（corollary）的样式和@定理:a 的样式一致，包括颜色，仅仅只有计数器的设置不一样。]
 #proposition[ (最优性原理)][如果 $u^*$ 在 $[s,T]$ 上为最优解，则 $u^*$ 在 $[s, T]$ 任意子区间都是最优解，假设区间为 $[t_0, t_1]$ 的最优解为 $u^*$ ，则 $u(t_0)=u^{*}(t_0)$，即初始条件必须还是在 $u^*$ 上。]
 
 我们知道最小二乘法可以用来处理一组数据，可以从一组测定的数据中寻求变量之间的依赖关系，这种函数关系称为经验公式。本课题将介绍最小二乘法的精确定义及如何寻求点与点之间近似成线性关系时的经验公式。假定实验测得变量之间的 $n$ 个数据，则在平面上，可以得到 $n$ 个点，这种图形称为 “散点图”，从图中可以粗略看出这些点大致散落在某直线近旁, 我们认为其近似为一线性函数，下面介绍求解步骤。
