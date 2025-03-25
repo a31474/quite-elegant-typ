@@ -6,4 +6,4 @@
 尝试用 Typst 对 ElegantBook 进行复刻.
 
 # 使用方法
-参照 [example.pdf](https://github.com/a31474/quite-elegant-typ//blob/master/example.pdf?raw=true)
+参照 [example.pdf](https://github.com/a31474/quite-elegant-typ/blob/master/example.pdf?raw=true)
