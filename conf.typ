@@ -33,7 +33,7 @@
   }
 }
 
-#let conf(doc, color-theme: "blue", eq-level: 1, new-math-fun: ()) = {
+#let conf(doc, color-theme: "blue", eq-level: 1, fig-image-level: 1, math-fun-level: 1) = {
   // 颜色
   let color-themes = color-select(color-theme)
 
@@ -70,7 +70,9 @@
     ],
   )
 
-  show heading: it => it + if it.level <= 1 { ar-h.update(i => i + ((h: counter(heading).at(it.location())),)) }
+  show heading: it => (
+    it + if it.level <= math-fun-level { ar-h.update(i => i + ((h: counter(heading).at(it.location())),)) }
+  )
   // 引用
   show ref: it => {
     set text(fill: rgb(127, 0, 0))
@@ -98,10 +100,10 @@
   show link: set text(fill: rgb(127, 0, 0))
 
   // 图片
-  show heading: it => it + figure-image-heading-update(it, eq-level)
+  show heading: it => it + figure-image-heading-update(it, fig-image-level)
   show figure.where(kind: image): set figure(
     numbering: _ => text(weight: "bold", fill: color-themes.structure)[
-      #numbering("1.1",..f-heading(level: eq-level)).#counter(figure.where(kind: image)).display("1")
+      #numbering("1.1",..f-heading(level: fig-image-level)).#counter(figure.where(kind: image)).display("1")
     ],
     gap: 0.2em,
     supplement: text(weight: "bold", fill: color-themes.structure)[图],
