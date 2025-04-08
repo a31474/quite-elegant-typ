@@ -1,8 +1,11 @@
 #import "../util/color.typ": color-select
-#import "../util/util.typ": f-numbering, ar-h
+
+#import "@preview/rich-counters:0.2.2": *
 
 // 颜色主题
 #let color-themes = color-select("blue")
+
+#let math-fun-counter(name) = rich-counter(identifier: name, inherited_levels: 1)
 
 // 定理类环境-框架
 #let math-fun-def-frame(main-color, title, content) = {
@@ -36,16 +39,16 @@
 
 // 定理类环境
 #let math-fun-def(main-color: rgb(0, 0, 0), type: "", number: true, name, content) = {
-  let title = type + if number { f-numbering("math-fun-def" + type) } + name
+  let c = math-fun-counter("math-fun-def" + type)
+  let title = type + if number { (c.step)() + context { (c.display)() } } + name
   math-fun-def-frame(main-color, title, content)
-  if number { ar-h.update(it => it + ("math-fun-def" + type,)) }
 }
 
 // 示例类环境
 #let math-fun-exam(main-color: rgb(0, 0, 0), number: true, type: "") = {
-  let title = type + " " + if number { f-numbering("math-fun-exam" + type) }
+  let c = math-fun-counter("math-fun-exam" + type)
+  let title = type + " " + if number { (c.step)() + context { (c.display)() } }
   text(fill: main-color, weight: "bold", font: ("Times New Roman", "FZHei-B01S"))[#title] + " "
-  if number { ar-h.update(it => it + ("math-fun-exam" + type,)) }
 }
 
 // 提示类环境
