@@ -293,7 +293,7 @@ _选用方正楷体作为强调字体_
 
 #text(fill: book-color.blue.second)[theorem、lemma、corollary、axiom、postulate] 环境，颜色为 #text(fill: book-color.blue.second)[second]；
 
-#text(fill: book-color.blue.third)[proposition] 环境，颜色为 #text(fill: book-color.blue.third)[sthird]。
+#text(fill: book-color.blue.third)[proposition] 环境，颜色为 #text(fill: book-color.blue.third)[third]。
 
 并且提供参数 `number`, 控制是否显示计数器.
 
