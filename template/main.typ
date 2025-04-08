@@ -1,4 +1,4 @@
-#import "@local/quite-elegant-typ:0.1.0": *
+#import "@local/quite-elegant-typ:0.2.0": *
 
 
 #show: conf
