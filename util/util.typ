@@ -27,3 +27,37 @@
   it.insert(kind, it.at(kind, default: 0) + 1)
   it
 })
+
+//  标题格式
+#let heading-style(color, doc) = {
+  show heading: it => (
+    if it.level == 1 {
+      set text(size: 1.2em, fill: color)
+      align(center)[#it]
+    } else if it.level == 2 {
+      set text(size: 1.2em, fill: color)
+      it
+    } else {
+      set text(size: 1.2em, fill: color)
+      it
+    }
+      + v(0.5em)
+  )
+  doc
+}
+
+#let equation-heading-update(it, update-level) = if it.numbering == none { } else {
+  if it.level <= update-level {
+    counter(math.equation).update(0)
+  }
+}
+#let figure-image-heading-update(it, update-level) = if it.numbering == none { } else {
+  if it.level <= update-level {
+    counter(figure.where(kind: image)).update(0)
+  }
+}
+#let math-fun-heading-update(it, update-level) = if it.numbering == none { } else {
+  if it.level <= update-level {
+    dic-he-ma.update(i => ("heading": counter(heading).at(it.location())))
+  }
+}
