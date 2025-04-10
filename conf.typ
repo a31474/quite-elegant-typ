@@ -1,6 +1,6 @@
 #import "header/header.typ": header-fun, heading-update
 #import "util/color.typ": color-select
-#import "util/util.typ": f-heading, f-numbering-ref, ar-h
+#import "util/util.typ": f-heading, dic-he-ma, f-numbering-ref
 
 #import "@preview/numbly:0.1.0": numbly
 
@@ -70,8 +70,8 @@
     ],
   )
 
-  show heading: it => (
-    it + if it.level <= math-fun-level { ar-h.update(i => i + ((h: counter(heading).at(it.location())),)) }
+  show heading: he => (
+    he + if he.level <= math-fun-level { dic-he-ma.update(i => ("heading": counter(heading).at(he.location()))) }
   )
   // 引用
   show ref: it => {
@@ -86,11 +86,11 @@
   // math-fun-ref
   show ref: it => if it.element != none and it.element.func() == [].func() {
     let state-update = state("test").update(it => it).func()
-    let type = str(it.element.label).split(":").first()
-    let i = it.element.children.last()
+    let kind = str(it.element.label).split(":").first()
+    let i = it.element.children.first()
     if i.func() == state-update {
-      if i.fields().values().first() == "array-heading-num" {
-        link(it.element.location(), type + f-numbering-ref(it.element.location(), "math-fun-def" + type))
+      if i.fields().values().first() == "dictionary-heading-math" {
+        link(it.element.location(), kind + f-numbering-ref(it.element.location(), kind))
       }
     }
   } else {
