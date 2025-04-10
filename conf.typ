@@ -1,37 +1,11 @@
 #import "header/header.typ": header-fun, heading-update
 #import "util/color.typ": color-select
 #import "util/util.typ": f-heading, dic-he-ma, f-numbering-ref
+#import "util/util.typ": heading-style
+#import "util/util.typ": equation-heading-update, figure-image-heading-update, math-fun-heading-update
 
 #import "@preview/numbly:0.1.0": numbly
 
-//  标题格式
-#let heading-style(color, doc) = {
-  show heading: it => (
-    if it.level == 1 {
-      set text(size: 1.2em, fill: color)
-      align(center)[#it]
-    } else if it.level == 2 {
-      set text(size: 1.2em, fill: color)
-      it
-    } else {
-      set text(size: 1.2em, fill: color)
-      it
-    }
-      + v(0.5em)
-  )
-  doc
-}
-
-#let equation-heading-update(it, update-level) = if it.numbering == none { } else {
-  if it.level <= update-level {
-    counter(math.equation).update(0)
-  }
-}
-#let figure-image-heading-update(it, update-level) = if it.numbering == none { } else {
-  if it.level <= update-level {
-    counter(figure.where(kind: image)).update(0)
-  }
-}
 
 #let conf(doc, color-theme: "blue", eq-level: 1, fig-image-level: 1, math-fun-level: 1) = {
   // 颜色
@@ -61,46 +35,21 @@
   // 标题
   show: heading-style.with(color-themes.structure)
   set heading(numbering: numbly("第{1}章", default: "1.1"))
+  // 标题计数更新
+  show heading: it => {
+    it
+    equation-heading-update(it, eq-level)
+    figure-image-heading-update(it, fig-image-level)
+    math-fun-heading-update(it, math-fun-level)
+  }
 
   // 数学计数
-  show heading: it => it + equation-heading-update(it, eq-level)
   set math.equation(
     numbering: _ => [
       (#numbering("1.1",..f-heading(level: eq-level)).#counter(math.equation).display("1"))
     ],
   )
-
-  show heading: he => (
-    he + if he.level <= math-fun-level { dic-he-ma.update(i => ("heading": counter(heading).at(he.location()))) }
-  )
-  // 引用
-  show ref: it => {
-    set text(fill: rgb(127, 0, 0))
-    let i = it.element
-    if i != none and i.func() == heading {
-      link(i.location(), numbering(i.numbering, ..counter(heading).at(i.location())) + " " + i.body)
-    } else {
-      it
-    }
-  }
-  // math-fun-ref
-  show ref: it => if it.element != none and it.element.func() == [].func() {
-    let state-update = state("test").update(it => it).func()
-    let kind = str(it.element.label).split(":").first()
-    let i = it.element.children.first()
-    if i.func() == state-update {
-      if i.fields().values().first() == "dictionary-heading-math" {
-        link(it.element.location(), kind + f-numbering-ref(it.element.location(), kind))
-      }
-    }
-  } else {
-    it
-  }
-
-  show link: set text(fill: rgb(127, 0, 0))
-
-  // 图片
-  show heading: it => it + figure-image-heading-update(it, fig-image-level)
+  // 图片计数
   show figure.where(kind: image): set figure(
     numbering: _ => text(weight: "bold", fill: color-themes.structure)[
       #numbering("1.1",..f-heading(level: fig-image-level)).#counter(figure.where(kind: image)).display("1")
@@ -109,6 +58,30 @@
     supplement: text(weight: "bold", fill: color-themes.structure)[图],
   )
 
+  // 引用
+  show link: set text(fill: rgb(127, 0, 0))
+  // math-fun-ref
+  let math-fun-ref(element) = {
+    let state-update = state("test").update(it => it).func()
+    let kind = str(element.label).split(":").first()
+    let i = element.children.first()
+    if i.func() == state-update {
+      if i.fields().values().first() == "dictionary-heading-math" {
+        link(element.location(), kind + f-numbering-ref(element.location(), kind))
+      }
+    }
+  }
+  show ref: it => {
+    set text(fill: rgb(127, 0, 0))
+    let e = it.element
+    if e != none and e.func() == heading {
+      link(e.location(), numbering(e.numbering, ..counter(heading).at(e.location())) + " " + e.body)
+    } else if e != none and e.func() == [].func() { math-fun-ref(e) } else {
+      it
+    }
+  }
+
+  // 列表
   set list(
     marker: (
       text(fill: color-themes.structure)[•],
@@ -117,8 +90,6 @@
     ),
     indent: 1em,
   )
-
-  // 列表
   set enum(
     numbering: (..it) => {
       set text(fill: color-themes.structure)
