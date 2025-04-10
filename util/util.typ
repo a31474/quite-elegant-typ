@@ -12,14 +12,14 @@
 #let f-numbering(kind) = context {
   let i = dic-he-ma.get()
   let heading-num = i.at("heading", default: (0,))
-  let kind-num = i.at(kind, default: 1)
+  let kind-num = i.at(kind, default: 0)
   [#numbering("1.1",..heading-num).#kind-num]
 }
 
 #let f-numbering-ref(loc, kind) = {
   let i = dic-he-ma.at(loc)
   let heading-num = i.at("heading", default: (0,))
-  let kind-num = i.at(kind, default: 1) + 1
+  let kind-num = i.at(kind, default: 0) + 1
   [#numbering("1.1",..heading-num).#kind-num]
 }
 
