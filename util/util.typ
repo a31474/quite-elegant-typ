@@ -7,16 +7,23 @@
   }
 }
 
-#let ar-h = state("array-heading-num", ())
+#let dic-he-ma = state("dictionary-heading-math", (:))
 
-#let f-numbering(name) = context {
-  let i = ar-h.get().rev().filter(it => it == name or type(it) == dictionary)
-  let r = i.position(it => type(it) == dictionary)
-  [#numbering("1.1", ..i.at(r).values().first()).#{ i.slice(0, r).len() + 1 }]
+#let f-numbering(kind) = context {
+  let i = dic-he-ma.get()
+  let heading-num = i.at("heading", default: (0,))
+  let kind-num = i.at(kind, default: 1)
+  [#numbering("1.1",..heading-num).#kind-num]
 }
 
-#let f-numbering-ref(loc, name) = {
-  let i = ar-h.at(loc).rev().filter(it => it == name or type(it) == dictionary)
-  let r = i.position(it => type(it) == dictionary)
-  [#numbering("1.1", ..i.at(r).values().first()).#{ i.slice(0, r).len() + 1 }]
+#let f-numbering-ref(loc, kind) = {
+  let i = dic-he-ma.at(loc)
+  let heading-num = i.at("heading", default: (0,))
+  let kind-num = i.at(kind, default: 1) + 1
+  [#numbering("1.1",..heading-num).#kind-num]
 }
+
+#let dic-he-ma-update(kind) = dic-he-ma.update(it => {
+  it.insert(kind, it.at(kind, default: 0) + 1)
+  it
+})

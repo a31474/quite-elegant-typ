@@ -1,5 +1,5 @@
 #import "../util/color.typ": color-select
-#import "../util/util.typ": f-numbering, ar-h
+#import "../util/util.typ": dic-he-ma, dic-he-ma-update, f-numbering
 
 // 颜色主题
 #let color-themes = color-select("blue")
@@ -35,22 +35,22 @@
 }
 
 // 定理类环境
-#let math-fun-def(main-color: rgb(0, 0, 0), type: "", number: true, name, content) = {
-  let title = type + if number { f-numbering("math-fun-def" + type) } + name
+#let math-fun-def(main-color: rgb(0, 0, 0), kind: "", number: true, name, content) = {
+  if number { dic-he-ma-update(kind) }
+  let title = kind + if number { f-numbering(kind) } + name
   math-fun-def-frame(main-color, title, content)
-  if number { ar-h.update(it => it + ("math-fun-def" + type,)) }
 }
 
 // 示例类环境
-#let math-fun-exam(main-color: rgb(0, 0, 0), number: true, type: "") = {
-  let title = type + " " + if number { f-numbering("math-fun-exam" + type) }
+#let math-fun-exam(main-color: rgb(0, 0, 0), number: true, kind: "") = {
+  if number { dic-he-ma-update(kind) }
+  let title = kind + " " + if number { f-numbering(kind) }
   text(fill: main-color, weight: "bold", font: ("Times New Roman", "FZHei-B01S"))[#title] + " "
-  if number { ar-h.update(it => it + ("math-fun-exam" + type,)) }
 }
 
 // 提示类环境
-#let math-fun-note(main-color: rgb(0, 0, 0), font: ("Times New Roman", "FZShuSong-Z01S"), type, body) = (
-  text(fill: main-color, weight: "bold")[#type]
+#let math-fun-note(main-color: rgb(0, 0, 0), font: ("Times New Roman", "FZShuSong-Z01S"), kind, body) = (
+  text(fill: main-color, weight: "bold")[#kind]
     + " "
     + {
       set text(font: font)

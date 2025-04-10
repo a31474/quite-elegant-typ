@@ -4,15 +4,15 @@
 #let example(number: true) = math-fun-exam(
   main-color: color-themes.main,
   number: number,
-  type: "例",
+  kind: "例",
 )
 #let problem(number: true) = math-fun-exam(
   main-color: color-themes.main,
   number: number,
-  type: "例题",
+  kind: "例题",
 )
 #let exercise(number: true) = math-fun-exam(
   main-color: color-themes.main,
   number: number,
-  type: "练习",
+  kind: "练习",
 )
