@@ -42,7 +42,9 @@
         align(
           center,
           box(image(adf-triple-flourish-left(color), height: 1em), baseline: 0.2em)
-            + " " + box(it) +" "
+            + " "
+            + box(it)
+            + " "
             + box(image(adf-triple-flourish-right(color), height: 1em), baseline: 0.2em),
         )
       } else {
