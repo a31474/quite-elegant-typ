@@ -34,7 +34,7 @@
 
   // 标题
   show: heading-style.with(color-themes.structure)
-  set heading(numbering: numbly("第{1}章", default: "1.1"))
+  set heading(numbering: numbly("第{1:一}章", default: "1.1"))
   // 标题计数更新
   show heading: it => {
     it
