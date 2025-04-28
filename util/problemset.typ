@@ -13,9 +13,9 @@
 )
 
 #let problemset-numbering-fn = (..nums) => {
-  numbering("第一章",nums.pos().first())
+  numbering("第一章", nums.pos().first())
 }
 #let problemset(color: black, body) = {
-  heading(numbering: problemset-numbering-fn,level: 2)[练习]
+  heading(numbering: problemset-numbering-fn, level: 2)[练习]
   body
 }
