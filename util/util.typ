@@ -1,3 +1,5 @@
+#import "problemset.typ": problemset-numbering-fn, adf-triple-flourish-left, adf-triple-flourish-right
+
 #let f-heading(level: 1) = {
   let h = counter(heading).get()
   if h.len() > level {
@@ -35,8 +37,18 @@
       set text(size: 1.2em, fill: color)
       align(center)[#it]
     } else if it.level == 2 {
-      set text(size: 1.2em, fill: color)
-      it
+      if it.numbering == problemset-numbering-fn {
+        set text(size: 1.2em, fill: color)
+        align(
+          center,
+          box(image(adf-triple-flourish-left(color), height: 1em), baseline: 0.2em)
+            + " " + box(it) +" "
+            + box(image(adf-triple-flourish-right(color), height: 1em), baseline: 0.2em),
+        )
+      } else {
+        set text(size: 1.2em, fill: color)
+        it
+      }
     } else {
       set text(size: 1.2em, fill: color)
       it

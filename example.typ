@@ -464,6 +464,21 @@ $ a times b $
 #set text(lang: "zh", region: "cn", size: 10pt)
 ```
 
+== 章后习题
+章后习题（problemset）环境，用于在每一章结尾，显示本章的练习。使用方法如下
+```
+#problemset[
+  + exercise 1
+  + exercise 2
+  + exercise 3
+]
+```
+
+#problemset[
+  + exercise 1
+  + exercise 2
+  + exercise 3
+]
 #pagebreak()
 = 写作示例
 
@@ -533,4 +548,10 @@ $ I(t)=integral_(cal(R)^1) f(x+t) g(x) dif x quad t in cal(R)^1 $
 ]
 #conclusion[
   回归分析（regression analysis） 是确定两种或两种以上变量间相互依赖的定量关系的一种统计分析方法。运用十分广泛，回归分析按照涉及的变量的多少，分为一元回归和多元回归分析；按照因变量的多少，可分为简单回归分析和多重回归分析；按照自变量和因变量之间的关系类型，可分为线性回归分析和非线性回归分析。
+]
+
+#problemset[
+  + 设 $A$ 为数域 $K$ 上的 $n$ 级矩阵。证明：如果 $K_n$ 中任意非零列向量都是 $A$ 的特征向量，则 $A$ 一定是数量矩阵。
+  + 证明：不为零矩阵的幂零矩阵不能对角化。
+  + 设 $A = (a_(i j))$ 是数域 $K$ 上的一个 $n$ 级上三角矩阵，证明：如果 $a_(11) = a_(22) = dots.c = a_(n n)$，并且至少有一个 $a_(k l) eq.not 0 (k < l)$，则 $A$ 一定不能对角化。
 ]
