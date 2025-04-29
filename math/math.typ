@@ -12,7 +12,7 @@
     rect(
       width: 100%,
       radius: 3pt,
-      inset: 1.5em,
+      inset: 1.2em,
       stroke: main-color,
       fill: main-color.lighten(95%),
       {

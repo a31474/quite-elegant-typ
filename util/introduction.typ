@@ -27,7 +27,7 @@
           inset: (left: 1em),
           row-gutter: 0.8em,
           ..for i in arg.pos() {
-            ([~~~#box(sq(color)) #i],)
+            ([~~~#box(sq(color))~~#i],)
           }
         )
       },
