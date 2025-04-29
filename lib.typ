@@ -24,3 +24,4 @@
 #import "util/color.typ": color-select, book-color
 
 #import "util/problemset.typ": problemset
+#import "util/introduction.typ": introduction
