@@ -32,31 +32,29 @@
 
 //  标题格式
 #let heading-style(color, doc) = {
-  show heading: it => (
-    if it.level == 1 {
+  show heading: set block( above: 1.69em, below: 1.3em)
+  show heading: it => if it.level == 1 {
+    set text(size: 1.2em, fill: color)
+    align(center)[#it]
+  } else if it.level == 2 {
+    if it.numbering == problemset-numbering-fn {
       set text(size: 1.2em, fill: color)
-      align(center)[#it]
-    } else if it.level == 2 {
-      if it.numbering == problemset-numbering-fn {
-        set text(size: 1.2em, fill: color)
-        align(
-          center,
-          box(image(adf-triple-flourish-left(color), height: 1em), baseline: 0.2em)
-            + " "
-            + box(it)
-            + " "
-            + box(image(adf-triple-flourish-right(color), height: 1em), baseline: 0.2em),
-        )
-      } else {
-        set text(size: 1.2em, fill: color)
-        it
-      }
+      align(
+        center,
+        box(image(adf-triple-flourish-left(color), height: 1em), baseline: 0.2em)
+          + " "
+          + box(it)
+          + " "
+          + box(image(adf-triple-flourish-right(color), height: 1em), baseline: 0.2em),
+      )
     } else {
       set text(size: 1.2em, fill: color)
       it
     }
-      + v(0.5em)
-  )
+  } else {
+    set text(size: 1.2em, fill: color)
+    it
+  }
   doc
 }
 

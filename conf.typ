@@ -12,7 +12,7 @@
   let color-themes = color-select(color-theme)
 
   // 页面
-  set page(margin: (x: 9.5%))
+  set page(margin: (x: 21mm, y: 25.4mm))
   // 页眉
   show heading: it => it + heading-update(it)
   set page(header: header-fun(color-themes.structure), header-ascent: 20%)
@@ -23,8 +23,8 @@
   )
 
   // 段落
-  set par(justify: true, spacing: 0.8em)
-
+  set par(justify: true, leading: 0.7em, spacing: 0.7em)
+ 
   // 字体
   set text(lang: "zh", region: "cn", size: 10pt)
   set text(font: ("Times New Roman", "FZShuSong-Z01S"))
