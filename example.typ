@@ -463,6 +463,21 @@ $ a times b $
 ```
 #set text(lang: "zh", region: "cn", size: 10pt)
 ```
+== 章节摘要
+```
+// 选择颜色
+#let introduction = introduction.with(color: color-select("blue").structure)
+
+#introduction(title: "内容提要")[Definition of Theorem][Property of Cauchy Series
+][Ask for help][Angle of Corner
+][Optimization Problem]
+```
+#let introduction = introduction.with(color: color-select("blue").structure)
+#introduction(title: "内容提要")[Definition of Theorem][Property of Cauchy Series
+][Ask for help][Angle of Corner
+][Optimization Problem]
+
+可以传入 `title` 改变标题名称
 
 == 章后习题
 章后习题（problemset）环境，用于在每一章结尾，显示本章的练习。使用方法如下
@@ -482,6 +497,7 @@ $ a times b $
 #pagebreak()
 = 写作示例
 
+#introduction[积分定义4.1.1 ][Fubini 定理][最优性原理][柯西列性质][最优性原理]
 == Lebesgue 积分
 
 在前面各章做了必要的准备后，本章开始介绍新的积分。在 Lebesgue 测度理论的基础上建立了 Lebesgue 积分，其被积函数和积分域更一般，可以对有界函数和无界函数统一处理。正是由于 Lebesgue 积分的这些特点，使得 Lebesgue 积分比 Riemann 积分具有在更一般条件下的极限定理和累次积分交换积分顺序的定理，这使得 Lebesgue 积分不仅在理论上更完善，而且在计算上更灵活有效。
