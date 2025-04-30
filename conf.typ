@@ -12,19 +12,19 @@
   let color-themes = color-select(color-theme)
 
   // 页面
-  set page(margin: (x: 21mm, y: 25.4mm))
+  set page(margin: (x: 20mm, y: 25.4mm))
   // 页眉
   show heading: it => it + heading-update(it)
   set page(header: header-fun(color-themes.structure), header-ascent: 20%)
   // 页脚
   set page(
-    footer-descent: 30%,
+    footer-descent: 12mm,
     footer: context align(center, text(fill: color-themes.structure)[#counter(page).display()]),
   )
 
   // 段落
   set par(justify: true, leading: 0.7em, spacing: 0.7em)
- 
+
   // 字体
   set text(lang: "zh", region: "cn", size: 10pt)
   set text(font: ("Times New Roman", "FZShuSong-Z01S"))
@@ -54,9 +54,10 @@
     numbering: _ => text(weight: "bold", fill: color-themes.structure)[
       #numbering("1.1",..f-heading(level: fig-image-level)).#counter(figure.where(kind: image)).display("1")
     ],
-    gap: 0.2em,
+    gap: 0.5em,
     supplement: text(weight: "bold", fill: color-themes.structure)[图],
   )
+  show figure.where(kind: image): set block(above: 1em, below: 1.69em)
 
   // 引用
   show link: set text(fill: rgb(127, 0, 0))
