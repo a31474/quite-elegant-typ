@@ -7,28 +7,31 @@
 // 定理类环境-框架
 #let math-fun-def-frame(main-color, title, content) = {
   v(-0.5em)
-  stack(
-    dir: btt,
-    rect(
-      width: 100%,
-      radius: 3pt,
-      inset: 1.2em,
-      stroke: main-color,
-      fill: main-color.lighten(95%),
-      {
-        set text(font: ("Times New Roman", "FZKai-Z03S"))
-        content
-      },
-    ),
-    move(
-      dx: 2em,
-      dy: 0.8em,
-      block(
-        stroke: none,
-        fill: main-color,
-        inset: 0.3em,
-        outset: (x: 0.8em),
-        text(fill: white, weight: "bold", bottom-edge: "descender")[#title],
+  block(
+    breakable: false,
+    stack(
+      dir: btt,
+      rect(
+        width: 100%,
+        radius: 3pt,
+        inset: 1.2em,
+        stroke: main-color,
+        fill: main-color.lighten(95%),
+        {
+          set text(font: ("Times New Roman", "FZKai-Z03S"))
+          content
+        },
+      ),
+      move(
+        dx: 2em,
+        dy: 0.8em,
+        block(
+          stroke: none,
+          fill: main-color,
+          inset: 0.3em,
+          outset: (x: 0.8em),
+          text(fill: white, weight: "bold", bottom-edge: "descender")[#title],
+        ),
       ),
     ),
   )
