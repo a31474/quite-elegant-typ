@@ -38,21 +38,42 @@
 }
 
 // 定理类环境
-#let math-fun-def(main-color: rgb(0, 0, 0), kind: "", number: true, name, content) = {
+///
+///
+/// - main-color (color):
+/// - kind (str):
+/// - number (bool):
+/// - name (content):
+/// - content (content):
+/// -> content
+#let math-fun-def(main-color: black, kind: "", number: true, name, content) = {
   if number { dic-he-ma-update(kind) }
   let title = kind + if number { f-numbering(kind) } + name
   math-fun-def-frame(main-color, title, content)
 }
 
 // 示例类环境
-#let math-fun-exam(main-color: rgb(0, 0, 0), number: true, kind: "") = {
+///
+///
+/// - main-color (color):
+/// - number (bool):
+/// - kind (str):
+/// -> content
+#let math-fun-exam(main-color: black, number: true, kind: "") = {
   if number { dic-he-ma-update(kind) }
   let title = kind + " " + if number { f-numbering(kind) }
   text(fill: main-color, weight: "bold", font: ("Times New Roman", "FZHei-B01S"))[#title] + " "
 }
 
 // 提示类环境
-#let math-fun-note(main-color: rgb(0, 0, 0), font: ("Times New Roman", "FZShuSong-Z01S"), kind, body) = (
+///
+///
+/// - main-color (color):
+/// - font (array):
+/// - kind (content):
+/// - body (content):
+/// -> content
+#let math-fun-note(main-color: black, font: ("Times New Roman", "FZShuSong-Z01S"), kind, body) = (
   text(fill: main-color, weight: "bold")[#kind]
     + " "
     + {
