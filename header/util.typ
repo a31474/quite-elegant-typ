@@ -1,10 +1,17 @@
+// 工具函数：格式化标题，包含编号和正文
 #let heading-new(heading-old) = {
-  let heading-old-numbering-fun = heading-old.numbering
-  let heading-old-numbering-num = counter(heading).at(heading-old.location())
-  let heading-old-numbering = if heading-old-numbering-fun == none {
+  let numbering-fun = heading-old.numbering
+  let numbering-nums = counter(heading).at(heading-old.location())
+
+  let formatted-numbering = if numbering-fun == none {
     none
   } else {
-    numbering(heading-old-numbering-fun, ..heading-old-numbering-num)
+    numbering(numbering-fun, ..numbering-nums)
   }
-  heading-old-numbering + " " + heading-old.body
+
+  if formatted-numbering == none {
+    heading-old.body
+  } else {
+    formatted-numbering + " " + heading-old.body
+  }
 }

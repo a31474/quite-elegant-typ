@@ -10,6 +10,7 @@
     headings
   })
 }
+
 // 首标题更新
 #let first-heading-l2-update(curr-heading) = context {
   first-heading-l2.update(headings => {
@@ -20,23 +21,36 @@
     headings
   })
 }
-// 查询函数
-#let find-2() = {
-  let page-num = here().page()
-  let first-headings-l2 = first-heading-l2.final()
-  let last-headings-l2 = last-heading-l2.get()
-  if first-headings-l2.keys() == () {
-    (has: false, value-h: none)
-  } else if page-num < int(first-headings-l2.keys().first()) {
-    (has: false, value-h: none)
-  } else {
-    let heading-2-page = first-headings-l2.keys().filter(it => int(it) <= page-num).last()
-    let has = here().page() == int(heading-2-page)
-    let value-h = if has {
-      first-headings-l2.at(str(page-num))
-    } else {
-      last-headings-l2.at(heading-2-page)
-    }
-    (has: has, value-h: value-h)
+
+// 查询函数：查找当前页或上一页最近的二级标题
+// 返回格式：(exists: bool, content: content)
+#let find-current-heading-l2() = {
+  let current-page = here().page()
+  let first-headings = first-heading-l2.final()
+  let last-headings = last-heading-l2.get()
+
+  if first-headings.keys() == () {
+    return (exists: false, content: none)
   }
+
+  // 筛选出小于等于当前页的所有记录页
+  let valid-pages = first-headings.keys().filter(it => int(it) <= current-page)
+
+  if valid-pages == () {
+    return (exists: false, content: none)
+  }
+
+  // 获取最接近当前页的页码
+  let target-page-key = valid-pages.last()
+  let target-page-num = int(target-page-key)
+  let is-current-page = current-page == target-page-num
+
+  // 如果在当前页，取该页第一个标题；否则取上一页的最后一个标题
+  let content = if is-current-page {
+    first-headings.at(str(current-page))
+  } else {
+    last-headings.at(target-page-key)
+  }
+
+  (exists: is-current-page, content: content)
 }

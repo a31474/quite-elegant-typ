@@ -1,5 +1,5 @@
-#import "heading-L1.typ": find-1, last-heading-l1-update, first-heading-l1-update
-#import "heading-L2.typ": find-2, last-heading-l2-update, first-heading-l2-update
+#import "heading-L1.typ": find-current-heading-l1, first-heading-l1-update, last-heading-l1-update
+#import "heading-L2.typ": find-current-heading-l2, first-heading-l2-update, last-heading-l2-update
 
 #let header-rect(it, color) = rect(
   width: 100%,
@@ -14,15 +14,18 @@
 )
 
 #let header-heading(color) = context {
-  if (
-    find-1().at("has")
-      or {
-        not find-2().at("has") and counter(heading).get().len() <= 1
-      }
-  ) {
-    // header-rect(find-1().at("value-h"), color)
+  let l1-info = find-current-heading-l1()
+  let l2-info = find-current-heading-l2()
+  let heading-count = counter(heading).get().len()
+
+  let show-l1 = (
+    l1-info.at("exists") or (not l2-info.at("exists") and heading-count <= 1)
+  )
+
+  if show-l1 {
+    // header-rect(l1-info.at("content"), color)
   } else {
-    header-rect(find-2().at("value-h"), color)
+    header-rect(l2-info.at("content"), color)
   }
 }
 
