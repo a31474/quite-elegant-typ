@@ -1,4 +1,4 @@
-#import "math.typ": math-fun-def, color-themes
+#import "math.typ": color-themes, math-fun-def
 
 // 定理类环境
 

@@ -1,4 +1,4 @@
-#import "math.typ": math-fun-note, color-themes
+#import "math.typ": color-themes, math-fun-note
 
 // 提示类环境
 #let note(body) = math-fun-note(main-color: color-themes.second, "笔记", font: ("Times New Roman", "FZKai-Z03S"), body)

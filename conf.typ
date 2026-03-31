@@ -1,6 +1,6 @@
 #import "header/header.typ": header-fun, heading-update
 #import "util/color.typ": color-select
-#import "util/util.typ": f-heading, dic-he-ma, f-numbering-ref
+#import "util/util.typ": dic-he-ma, f-heading, f-numbering-ref
 #import "util/util.typ": heading-style
 #import "util/util.typ": equation-heading-update, figure-image-heading-update, math-fun-heading-update
 
@@ -46,13 +46,13 @@
   // 数学计数
   set math.equation(
     numbering: _ => [
-      (#numbering("1.1",..f-heading(level: eq-level)).#counter(math.equation).display("1"))
+      (#numbering("1.1", ..f-heading(level: eq-level)).#counter(math.equation).display("1"))
     ],
   )
   // 图片计数
   show figure.where(kind: image): set figure(
     numbering: _ => text(weight: "bold", fill: color-themes.structure)[
-      #numbering("1.1",..f-heading(level: fig-image-level)).#counter(figure.where(kind: image)).display("1")
+      #numbering("1.1", ..f-heading(level: fig-image-level)).#counter(figure.where(kind: image)).display("1")
     ],
     gap: 0.5em,
     supplement: text(weight: "bold", fill: color-themes.structure)[图],

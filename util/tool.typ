@@ -16,7 +16,7 @@
   page(footer: none, margin: 0%)[
     #grid(
       columns: 1fr,
-      align(top + center, block(height: 56.57%, { if cover == none { } else { cover } })),
+      align(top + center, block(height: 56.57%, { if cover == none {} else { cover } })),
       block(height: 4.2%, fill: rect-color, width: 100%)
     )
     #v(3%)
@@ -29,7 +29,7 @@
         (作者: author, 组织: institute, 时间: date, 版本: version) + if type(other) == dictionary { other }
       )
       for (i, j) in info {
-        if j == none { } else {
+        if j == none {} else {
           block(
             text(font: ("Times New Roman", "FZKai-Z03S"), fill: black.lighten(50%))[#i：#j],
             inset: (x: 6%),
