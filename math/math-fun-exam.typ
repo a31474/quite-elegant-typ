@@ -1,4 +1,4 @@
-#import "math.typ": math-fun-exam, color-themes
+#import "math.typ": color-themes, math-fun-exam
 
 // 示例类环境
 #let example(number: true) = math-fun-exam(
