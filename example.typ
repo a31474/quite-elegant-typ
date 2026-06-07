@@ -31,7 +31,7 @@
   author: [编译型战狼],
   date: datetime.today().display(),
   version: version(0, 2, 0),
-  other: (自定义: "信息"),
+  other: ("自定义": "信息"),
 )
 #default-outline()
 
@@ -55,9 +55,20 @@
 #default-outline()
 ```
 
-注意把 `lib.typ` 改成其对应的本地路径
+也可以使用 `book()` 一步完成：
 
-其中 `#default-cover()` 和 `#default-outline()` 分别添加了封面和目录. 若不需要, 可以不用加上.
+```
+#import "lib.typ": *
+
+#show: book.with(
+  title: [书名],
+  author: [作者],
+)
+```
+
+`book()` 同时设置封面、目录和正文样式，参数包含 `conf()` 和 `default-cover()` 的所有参数。若需要更多自定义（如取消封面），则分开调用 `#show: conf` + `#default-cover()` + `#default-outline()`。
+
+注意把 `lib.typ` 改成其对应的本地路径
 
 封面和目录设置请参考 @封面 和 @目录
 
@@ -71,7 +82,7 @@
 
 == 其他
 
-使用模板时, 若需要添加 `show` , `set` 规则时. 注意把 `show` 规则添加到本文档设置 `#show: conf` 前, 以免与模板设置发生冲突. 而可以把 `set` 规则添加到 `#show: conf` 后, 以覆盖模板的配置.
+使用模板时, 若需要添加 `show` , `set` 规则时. 注意把 `show` 规则添加到本文档设置 `#show: conf`（或 `#show: book`）前, 以免与模板设置发生冲突. 而可以把 `set` 规则添加到 `#show: conf`（或 `#show: book`）后, 以覆盖模板的配置.
 
 如本文档对代码块进行的 `show` , `set` 设置
 ```
@@ -220,23 +231,30 @@ _选用方正楷体作为强调字体_
 
 == 封面设置 <封面>
 === 默认封面设置
-封面 `default-cover` 提供了以下参数
+封面 `default-cover` 提供了以下参数：
 
-/ cover: 封面图片
-/ rect-color: 中间色块颜色
-/ logo: 徽标
-/ title: 标题
-/ subtitle: 副标题
-/ author: 作者,
-/ institute: 机构,
-/ date: 日期,
-/ version: 版本,
-/ other: 自定义元素,
-/ extrainfo: 自定义内容,
+#table(
+  columns: (auto, auto, auto, 1fr),
+  stroke: none,
+  align: horizon,
+  table.hline(),
+  table.header[参数][类型][默认值][说明],
+  table.hline(stroke: 0.5pt),
+  [cover], [content / none], [none], [封面图片，传入 `none` 时显示灰色占位方块],
+  [rect-color], [color], [rgb(32, 178, 170)], [中间色块颜色],
+  [title], [content], [[标题]], [主标题],
+  [subtitle], [content / none], [[副标题]], [副标题，传入 `none` 时不显示],
+  [author], [content / none], [none], [作者],
+  [institute], [content / none], [none], [机构],
+  [date], [content / none], [none], [日期],
+  [version], [content / none], [none], [版本],
+  [other], [dictionary / none], [none], [自定义键值对，传入 `none` 时不显示],
+  [logo], [content / none], [none], [徽标，显示在信息区域右侧],
+  [extrainfo], [content / none], [none], [自定义底部居中内容],
+  table.hline(stroke: 0.5pt),
+)
 
-其中 `other` 需要传入一字典来, 显示自定义的元素.
-
-而 `extrainfo` 可以传入 `content`
+其中 `other` 需传入字典类型（如 `("自定义": "信息")`）；`extrainfo` 可传入任意 `content`。
 
 如下为本文档的封面
 ```
@@ -247,7 +265,7 @@ _选用方正楷体作为强调字体_
   author: [编译型战狼],
   date: datetime.today().display(),
   version: version(0, 2, 0),
-  other: (自定义: "信息"),
+  other: ("自定义": "信息"),
 )
 ```
 === 自定义封面
@@ -268,10 +286,13 @@ _选用方正楷体作为强调字体_
 
 
 == 目录选项 <目录>
-目录的颜色主题不会随 conf 的设置变化, 需要手动设定
+目录颜色不会随 `conf` 的颜色主题变化，需要手动设定。`default-outline` 接收 `outline-color` 参数（颜色值，默认为蓝色）：
+
 ```
-#default-outline(color-theme: "green")
+#default-outline(outline-color: color-select("green").structure)
 ```
+
+使用 `book()` 时，目录颜色在 `outline-color` 为 `none` 时会自动跟随文档 `color-theme`。
 
 == 数学环境简介
 本模板定义了三类数学环境, 有以下这些
