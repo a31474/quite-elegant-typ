@@ -1,6 +1,6 @@
-#import "header/header.typ": header-fun, heading-update
+#import "header/header.typ": page-header, heading-update
 #import "util/color.typ": color-select
-#import "util/util.typ": dic-he-ma, f-heading, f-numbering-ref
+#import "util/util.typ": heading-numbers, math-env-numbering-ref
 #import "util/util.typ": heading-style
 #import "math/math.typ": math-fun-color-theme-state
 #import "util/util.typ": equation-heading-update, figure-image-heading-update, math-fun-heading-update
@@ -20,7 +20,7 @@
   set page(margin: (x: 20mm, y: 25.4mm))
   // 页眉
   show heading: it => it + heading-update(it)
-  set page(header: header-fun(color-themes.structure), header-ascent: 20%)
+  set page(header: page-header(color-themes.structure), header-ascent: 20%)
   // 页脚
   set page(
     footer-descent: 12mm,
@@ -51,13 +51,13 @@
   // 数学计数
   set math.equation(
     numbering: _ => [
-      (#numbering("1.1", ..f-heading(level: eq-level)).#counter(math.equation).display("1"))
+      (#numbering("1.1", ..heading-numbers(level: eq-level)).#counter(math.equation).display("1"))
     ],
   )
   // 图片计数
   show figure.where(kind: image): set figure(
     numbering: _ => text(weight: "bold", fill: color-themes.structure)[
-      #numbering("1.1", ..f-heading(level: fig-image-level)).#counter(figure.where(kind: image)).display("1")
+      #numbering("1.1", ..heading-numbers(level: fig-image-level)).#counter(figure.where(kind: image)).display("1")
     ],
     gap: 0.5em,
     supplement: text(weight: "bold", fill: color-themes.structure)[图],
@@ -73,7 +73,7 @@
     let i = element.children.first()
     if i.func() == state-update {
       if i.fields().values().first() == "dictionary-heading-math" {
-        link(element.location(), kind + f-numbering-ref(element.location(), kind))
+        link(element.location(), kind + math-env-numbering-ref(element.location(), kind))
       }
     }
   }

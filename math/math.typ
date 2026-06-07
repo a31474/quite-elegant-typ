@@ -1,5 +1,5 @@
 #import "../util/color.typ": color-select
-#import "../util/util.typ": dic-he-ma, dic-he-ma-update, f-numbering
+#import "../util/util.typ": heading-math-update, math-env-numbering
 
 // 颜色主题
 #let math-fun-color-theme-state = state("math-fun-color-theme-state", color-select("blue"))
@@ -42,8 +42,8 @@
   let main-color() = if type(color) == std.color { color } else if color == none {
     math-fun-color-theme-state.get().at(color-theme-kind)
   } else { black }
-  if number { dic-he-ma-update(kind) }
-  let title = kind + if number { f-numbering(kind) } + name
+  if number { heading-math-update(kind) }
+  let title = kind + if number { math-env-numbering(kind) } + name
   context math-fun-def-frame(main-color(), title, content)
 }
 
@@ -52,8 +52,8 @@
   let main-color() = if type(color) == std.color { color } else if color == none {
     math-fun-color-theme-state.get().at(color-theme-kind)
   } else { black }
-  if number { dic-he-ma-update(kind) }
-  let title = kind + " " + if number { f-numbering(kind) }
+  if number { heading-math-update(kind) }
+  let title = kind + " " + if number { math-env-numbering(kind) }
   context text(fill: main-color(), weight: "bold", font: ("Times New Roman", "FZHei-B01S"))[#title] + " "
 }
 

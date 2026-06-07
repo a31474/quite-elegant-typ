@@ -28,7 +28,7 @@
   }
 }
 
-#let header-fun(color) = {
+#let page-header(color) = {
   set text(fill: color)
   header-heading(color)
 }
