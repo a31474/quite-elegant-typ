@@ -1,5 +1,4 @@
-#import "heading-L1.typ": find-current-heading-l1, first-heading-l1-update, last-heading-l1-update
-#import "heading-L2.typ": find-current-heading-l2, first-heading-l2-update, last-heading-l2-update
+#import "heading-state.typ": find-current-heading, first-heading-update, last-heading-update
 
 #let header-rect(it, color) = rect(
   width: 100%,
@@ -14,8 +13,8 @@
 )
 
 #let header-heading(color) = context {
-  let l1-info = find-current-heading-l1()
-  let l2-info = find-current-heading-l2()
+  let l1-info = find-current-heading(1)
+  let l2-info = find-current-heading(2)
   let heading-count = counter(heading).get().len()
 
   let show-l1 = (
@@ -34,10 +33,7 @@
   header-heading(color)
 }
 
-#let heading-update(it) = if it.level == 1 {
-  last-heading-l1-update(it)
-  first-heading-l1-update(it)
-} else if it.level == 2 {
-  last-heading-l2-update(it)
-  first-heading-l2-update(it)
+#let heading-update(it) = {
+  last-heading-update(it)
+  first-heading-update(it)
 }
