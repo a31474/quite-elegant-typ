@@ -2,7 +2,7 @@
 #import "../util/util.typ": dic-he-ma, dic-he-ma-update, f-numbering
 
 // 颜色主题
-#let color-themes = color-select("blue")
+#let math-fun-color-theme-state = state("math-fun-color-theme-state", color-select("blue"))
 
 // 定理类环境-框架
 #let math-fun-def-frame(main-color, title, content) = {
@@ -38,46 +38,36 @@
 }
 
 // 定理类环境
-///
-///
-/// - main-color (color):
-/// - kind (str):
-/// - number (bool):
-/// - name (content):
-/// - content (content):
-/// -> content
-#let math-fun-def(main-color: black, kind: "", number: true, name, content) = {
+#let math-fun-def(color: none, color-theme-kind: "main", kind: "", number: true, name, content) = {
+  let main-color() = if type(color) == std.color { color } else if color == none {
+    math-fun-color-theme-state.get().at(color-theme-kind)
+  } else { black }
   if number { dic-he-ma-update(kind) }
   let title = kind + if number { f-numbering(kind) } + name
-  math-fun-def-frame(main-color, title, content)
+  context math-fun-def-frame(main-color(), title, content)
 }
 
 // 示例类环境
-///
-///
-/// - main-color (color):
-/// - number (bool):
-/// - kind (str):
-/// -> content
-#let math-fun-exam(main-color: black, number: true, kind: "") = {
+#let math-fun-exam(color: none, color-theme-kind: "main", number: true, kind: "") = {
+  let main-color() = if type(color) == std.color { color } else if color == none {
+    math-fun-color-theme-state.get().at(color-theme-kind)
+  } else { black }
   if number { dic-he-ma-update(kind) }
   let title = kind + " " + if number { f-numbering(kind) }
-  text(fill: main-color, weight: "bold", font: ("Times New Roman", "FZHei-B01S"))[#title] + " "
+  context text(fill: main-color(), weight: "bold", font: ("Times New Roman", "FZHei-B01S"))[#title] + " "
 }
 
 // 提示类环境
-///
-///
-/// - main-color (color):
-/// - font (array):
-/// - kind (content):
-/// - body (content):
-/// -> content
-#let math-fun-note(main-color: black, font: ("Times New Roman", "FZShuSong-Z01S"), kind, body) = (
-  text(fill: main-color, weight: "bold")[#kind]
-    + " "
-    + {
-      set text(font: font)
-      body
-    }
-)
+#let math-fun-note(color: none, color-theme-kind: "main", font: ("Times New Roman", "FZShuSong-Z01S"), kind, body) = {
+  let main-color() = if type(color) == std.color { color } else if color == none {
+    math-fun-color-theme-state.get().at(color-theme-kind)
+  } else { black }
+  (
+    context text(fill: main-color(), weight: "bold")[#kind]
+      + " "
+      + {
+        set text(font: font)
+        body
+      }
+  )
+}

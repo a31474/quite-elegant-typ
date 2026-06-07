@@ -1,6 +1,6 @@
-#import "math.typ": color-themes, math-fun-exam
+#import "math.typ": math-fun-exam
 
 // 示例类环境
-#let example = math-fun-exam.with(main-color: color-themes.main, kind: "例")
-#let problem = math-fun-exam.with(main-color: color-themes.main, kind: "例题")
-#let exercise = math-fun-exam.with(main-color: color-themes.main, kind: "练习")
+#let example = math-fun-exam.with(kind: "例")
+#let problem = math-fun-exam.with(kind: "例题")
+#let exercise = math-fun-exam.with(kind: "练习")

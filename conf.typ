@@ -2,15 +2,20 @@
 #import "util/color.typ": color-select
 #import "util/util.typ": dic-he-ma, f-heading, f-numbering-ref
 #import "util/util.typ": heading-style
+#import "math/math.typ": math-fun-color-theme-state
 #import "util/util.typ": equation-heading-update, figure-image-heading-update, math-fun-heading-update
 
 #import "@preview/numbly:0.1.0": numbly
 
 
-#let conf(doc, color-theme: "blue", eq-level: 1, fig-image-level: 1, math-fun-level: 1) = {
+#let conf(doc, color-theme: "blue", math-fun-color-theme: none, eq-level: 1, fig-image-level: 1, math-fun-level: 1) = {
   // 颜色
   let color-themes = color-select(color-theme)
-
+  if math-fun-color-theme == none {
+    math-fun-color-theme-state.update(color-themes)
+  } else {
+    math-fun-color-theme-state.update(color-select(math-fun-color-theme))
+  }
   // 页面
   set page(margin: (x: 20mm, y: 25.4mm))
   // 页眉

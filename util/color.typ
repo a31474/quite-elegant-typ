@@ -51,7 +51,7 @@
       color-theme.values().all(it => type(it) == color),
       message: "自定义颜色主题失败. 字典的 value 类型必须为 color",
     )
-    color-theme.keys()
+    color-theme
   } else {
     assert(false, message: "请输入颜色主题名称,或自定义颜色主题")
   }

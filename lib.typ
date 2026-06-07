@@ -19,6 +19,7 @@
 
 //
 #import "math/math.typ": math-fun-def, math-fun-exam, math-fun-note
+#import "math/math.typ": math-fun-color-theme-state
 
 //
 #import "util/color.typ": book-color, color-select

@@ -67,8 +67,6 @@
 == 待办事项
 本模板仍未完善, 未能完成对 ElegantBook 的完全复刻. 还有以下事项需要解决
 
-+ 章节摘要
-+ 章后习题
 + 参考文献
 
 == 其他
@@ -175,6 +173,8 @@ _选用方正楷体作为强调字体_
 )
 ```
 需传入一字典, 字典的 keys 必须分别为 structure, main, second, third. 各自的 value 为对应颜色.
+
+数学环境的颜色主题可以通过 `math-fun-color-theme` 单独设置，不设置时跟随文档颜色主题。详见 @颜色设置.
 
 === 具体配置
 下表为内置颜色主题的具体配置
@@ -355,29 +355,21 @@ _选用方正楷体作为强调字体_
 
 引用测试 #link(<test>)[定义引用]
 
-=== 颜色设置
+=== 颜色设置 <颜色设置>
 
-数学环境的颜色想要更改需要手动更改文件.
-
-需要更改 `math` 文件夹下的 `math.typ` 中
+数学环境的颜色可通过 `conf()` 的 `math-fun-color-theme` 参数设置，用法与文档颜色主题 `color-theme` 一致：
 
 ```
-// 颜色主题
-#let color-themes = color-select("blue")
+#show: it => conf(it, math-fun-color-theme: "green")
 ```
 
-改为对应颜色主题, 如
+不设置时（默认 `none`），数学环境颜色会跟随文档颜色主题。
+
+若使用中需要修改颜色主题，可使用以下进行更改
+
 ```
-#let color-themes = color-select("black")
-```
-或像 @颜色, 传入一字典
-```
-#let color-themes = (
-  structure: rgb(255, 0, 0),
-  main: rgb(0, 255, 0),
-  second: rgb(0, 0, 255),
-  third: rgb(255, 255, 0),
-)
+// 更新数学环境颜色主题
+#math-fun-color-theme-state.update(color-select("green"))
 ```
 
 === 新增数学环境
@@ -388,11 +380,10 @@ _选用方正楷体作为强调字体_
 *定理类*
 ```
 // 快速定义
-#let color-themes = color-select("blue")
-#let postulate = math-fun-def.with(main-color: color-themes.second, kind: "假设")
+#let postulate = math-fun-def.with(color-theme-kind: "second", kind: "假设")
 // 具体参数
 #let postulate(number: true, name, content) = math-fun-def(
-  main-color: color-themes.second,
+  color-theme-kind: "second",
   kind: "假设",
   number: number,
   name,
@@ -403,11 +394,9 @@ _选用方正楷体作为强调字体_
 *示例类*
 ```
 // 快速定义
-#let color-themes = color-select("blue")
-#let example = math-fun-exam.with(main-color: color-themes.main, kind: "例")
+#let example = math-fun-exam.with(kind: "例")
 // 具体参数
 #let example(number: true) = math-fun-exam(
-  main-color: color-themes.main,
   number: number,
   kind: "例"
 )
@@ -415,9 +404,7 @@ _选用方正楷体作为强调字体_
 
 *结论类*
 ```
-#let color-themes = color-select("blue")
 #let conclusion = math-fun-note.with(
-  main-color: color-themes.third,
   font: ("Times New Roman", "FZKai-Z03S"),
   "结论",
 )
